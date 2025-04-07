@@ -5,8 +5,8 @@ import discord
 import megabox
 
 
-TARGET_MOVIE_NO = "25008000"
-TARGET_THEATER_ID = 1351
+TARGET_MOVIE_NO = "25008000"  # 진격거 완결편 극장판
+TARGET_THEATER_ID = 1351  # 코엑스 메가박스
 TARGET_DATES = [
     datetime.date(2025, 4, 11),  # 금
     datetime.date(2025, 4, 12),  # 토
@@ -28,7 +28,7 @@ def is_what_we_are_looking_for(movie: megabox.MovieForm) -> bool:
 
 
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
-CHANNEL_ID = 1358260652497440909
+CHANNEL_ID = 1358260652497440909  # 허밍 디스코드 진격거 쓰레드
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
@@ -42,7 +42,8 @@ async def on_ready():
         print(f'Scanning for {date}...')
         for movie in megabox.select_bokd_list(TARGET_MOVIE_NO, date).movie_form_list:
             if is_what_we_are_looking_for(movie):
-                lines.append(f'- {movie.play_date}({"월화수목금토일"[date.weekday()]}) {movie.play_start_time}-{movie.play_end_time} {movie.rest_seat_count}석 남아있어!')
+                lines.append(
+                    f'- {movie.play_date}({"월화수목금토일"[date.weekday()]}) {movie.play_start_time}-{movie.play_end_time} {movie.rest_seat_count}석 남아있어!')
     if lines:
         lines.appendleft(f'삐용삐용!!! 우와아앗...!! 코엑스에 자리난 것 같아!')
         lines.append(f'')
