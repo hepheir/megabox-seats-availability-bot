@@ -27,7 +27,7 @@ def is_what_we_are_looking_for(movie: megabox.MovieForm) -> bool:
     return True
 
 
-TOKEN = os.environ('DISCORD_BOT_TOKEN')
+TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 CHANNEL_ID = 1358260652497440909
 
 intents = discord.Intents.default()
