@@ -6,7 +6,7 @@ name: Python application
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 9-23 * 4 *'
+    - cron: '0 0-14 * 4 *'
 
 permissions:
   contents: read
