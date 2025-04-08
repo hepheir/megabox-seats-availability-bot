@@ -1,5 +1,6 @@
 import datetime
 import os
+import time
 import typing
 import discord
 import megabox
@@ -40,6 +41,7 @@ async def on_ready():
             f'서두르는게 좋을 것 같아, 행운을 빌어!\n'
             f'(잔여석 중 약 4석은 장애인 전용석이라는 점에 유의해!)\n'
         )
+        print(message)
         await client.get_channel(DISCORD_CHANNEL_ID_INFO).send(message)
         await client.get_channel(DISCORD_CHANNEL_ID_WARN).send(message)
     else:
@@ -47,6 +49,7 @@ async def on_ready():
             f'아직까진 코엑스에 자리가 없는 것 같아... ㅠㅠ'
             f' ({datetime.datetime.now().astimezone(TIMEZONE).strftime("%m.%d %H:%M")})'
         )
+        print(message)
         await client.get_channel(DISCORD_CHANNEL_ID_INFO).send(message)
     await client.close()
 
@@ -73,4 +76,8 @@ def movie_to_string(movie: megabox.MovieForm) -> str:
     return f'- {movie.play_date}({"월화수목금토일"[movie.play_date.weekday()]}) {movie.play_start_time}-{movie.play_end_time} : `{movie.rest_seat_count}`석 남아있어!'
 
 
-client.run(token=DISCORD_TOKEN)
+try:
+    client.run(token=DISCORD_TOKEN)
+except Exception:
+    time.sleep(10)
+    client.run(token=DISCORD_TOKEN)
