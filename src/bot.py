@@ -62,6 +62,8 @@ def find_all_movies(movie_no: str) -> typing.List[megabox.MovieForm]:
 
 
 def is_what_we_are_looking_for(movie: megabox.MovieForm) -> bool:
+    if movie.play_date < datetime.date.today():
+        return False
     if not movie.is_2d_mx4d:
         return False
     if not movie.branch_id == TARGET_THEATER_ID:
